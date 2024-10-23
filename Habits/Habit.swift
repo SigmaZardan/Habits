@@ -11,7 +11,7 @@ import Foundation
 // every time you add a habit
 // you are actually adding a new habit
 
-struct Habit: Identifiable{
+struct Habit: Identifiable, Codable{
     let id: Int
     let habitTitle: String
     let description: String
@@ -19,4 +19,26 @@ struct Habit: Identifiable{
     let habitGoal: String
     let dailyCount: Int
     let dailyCountUnit: String
+}
+
+@Observable
+class Habits {
+    var habits: [Habit] {
+        didSet {
+            if let encoded = try? JSONEncoder().encode(habits) {
+                UserDefaults.standard.set(encoded, forKey: "HabitItems")
+            }
+        }
+    }
+    
+    init() {
+        if let savedItems = UserDefaults.standard.data(forKey: "HabitItems") {
+            if let decodedItems = try? JSONDecoder().decode([Habit].self, from: savedItems) {
+                habits = decodedItems
+                return
+            }
+        }
+    
+        habits = []
+    }
 }
