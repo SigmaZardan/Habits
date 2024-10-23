@@ -9,11 +9,11 @@ import SwiftUI
 
 struct AddNewHabit: View {
     let habitGoals = ["Build a habit", "Break a habit"]
-    let habitTypes = ["Healthy Habits", "Unhealthy Habits", "Body", "Mind", "Happiness", "Commitment", "Productivity", "Custom Habit"]
+    let habitTypes = ["Healthy Habits", "Unhealthy Habits", "Body", "Mind", "Happiness", "Commitment", "Productivity", "Custom Type"]
     
     let dailyGoalUnits = ["count", "Custom Unit"]
     
-    @State private var selectedName = ""
+    @State private var selectedTitle = ""
     @State private var selectedDescription = ""
     @State private var selectedGoal = "Build a habit"
     @State private var habitType = "Healthy Habits"
@@ -26,106 +26,129 @@ struct AddNewHabit: View {
     }
     
     var customHabitTypeSelected: Bool {
-        return habitType == "Custom Habit"
+        return habitType == "Custom Type"
     }
     
     @State private var customHabitType = ""
     // while saving the habit , if the customhabit is selected then send this custom type otherwise just habit type
     
-    var customGoalUnitSelected: Bool {
+    var customCountUnitSelected: Bool {
         return dailyGoalUnit == "Custom Unit"
     }
     
-    @State private var customDailyGoalUnit = "" // if the custom unit is selected then send this custom type otherwose just daily goal unit when you save the data
+    @State private var customDailyCountUnit = "" // if the custom unit is selected then send this custom type otherwose just daily goal unit when you save the data
 
     
     @Environment(\.dismiss) var dismiss
     
     @State private var dailyCount = 0
     
+    @State private var showTitleError = false
+    @State private var errorTitle = ""
+    @State private var errorMessage = ""
+    
     var body: some View {
         NavigationStack {
                 ZStack {
                     Color(.sheetBackgroundColor).ignoresSafeArea()
-                    Form {
-                        Section {
-                            TextField("E.g., Take a walk", text: $selectedName)
-                                .cursorStyle()
+                    VStack {
+                        Form {
+                            Section {
+                                TextField("E.g., Take a walk", text: $selectedTitle)
+                                    .cursorStyle()
                                 
-                        }header: {
-                            Text("name")
-                        }.sectionColorStyle()
-                        
-                        
-                        Section {
-                            Picker("I want to", selection: $selectedGoal) {
-                                ForEach(habitGoals, id: \.self) { goal in
-                                    Text(goal)
+                            }header: {
+                                Text("name")
+                            }.sectionColorStyle()
+                            
+                            
+                            Section {
+                                Picker("I want to", selection: $selectedGoal) {
+                                    ForEach(habitGoals, id: \.self) { goal in
+                                        Text(goal)
+                                    }
+                                }.pickerStyle(.navigationLink)
+                                
+                                if showMore {
+                                    TextField("Description", text: $selectedDescription, axis: .vertical)
+                                        .cursorStyle()
                                 }
-                            }.pickerStyle(.navigationLink)
+                                
+                            }header: {
+                                HStack {
+                                    Text("details")
+                                    Spacer()
+                                    Button {
+                                        // show description label
+                                        showMore.toggle()
+                                    }label: {
+                                        Text(detailsButtonText)
+                                            .font(.caption)
+                                    }
+                                }
+                            }.sectionColorStyle()
+                            
+                            
+                            Section {
+                                Picker("Select Type", selection: $habitType) {
+                                    ForEach(habitTypes, id: \.self) { goal in
+                                        Text(goal)
+                                    }
+                                }.pickerStyle(.navigationLink)
+                                
+                                if customHabitTypeSelected {
+                                    TextField("Custom habit", text: $customHabitType, axis: .vertical)
+                                        .cursorStyle()
+                                }
+                            }header: {
+                                Text("Type")
+                            }.sectionColorStyle()
+                            
+                            Section {
+                                HStack {
+                                    TextField("",value: $dailyCount, formatter: NumberFormatter())
+                                        .cursorStyle()
+                                    Spacer()
+                                    Stepper("", onIncrement: {
+                                        incrementDailyCount()
+                                    }, onDecrement: {
+                                        decrementDailyCount()
+                                    })
+                                }
+                                
+                                Picker("Unit", selection: $dailyGoalUnit) {
+                                    ForEach(dailyGoalUnits, id: \.self) { goal in
+                                        Text(goal)
+                                    }
+                                }.pickerStyle(.navigationLink)
+                                
+                                if customCountUnitSelected {
+                                    TextField("Custom Unit", text: $customDailyCountUnit, axis: .vertical)
+                                        .cursorStyle()
+                                }
+                            }header: {
+                                Text("my daily goal")
+                            }.sectionColorStyle()
+                            
+                        }.scrollContentBackground(.hidden)
+                    
+                        Button {
+                            // add habit
+                            addHabit()
                            
-                            if showMore {
-                                TextField("Description", text: $selectedDescription, axis: .vertical)
-                                    .cursorStyle()
-                            }
-                            
-                        }header: {
-                            HStack {
-                                Text("details")
-                                Spacer()
-                                Button {
-                                   // show description label
-                                    showMore.toggle()
-                                }label: {
-                                    Text(detailsButtonText)
-                                        .font(.caption)
-                                }
-                            }
-                        }.sectionColorStyle()
+                        }label: {
+                            Text("Add habit")
+                                .font(.title3.bold())
+                                .padding()
+                        }
+                        .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
+                        .background(.itemsBackgroundColor)
+                        .foregroundStyle(.black)
+                        .clipShape(.rect(cornerRadius: 12))
+                        .padding()
                         
-
-                        Section {
-                            Picker("Select Type", selection: $habitType) {
-                                ForEach(habitTypes, id: \.self) { goal in
-                                    Text(goal)
-                                }
-                            }.pickerStyle(.navigationLink)
-                            
-                            if customHabitTypeSelected {
-                                TextField("Custom habit", text: $customHabitType, axis: .vertical)
-                                    .cursorStyle()
-                            }
-                        }header: {
-                             Text("Type")
-                        }.sectionColorStyle()
-                        
-                        Section {
-                            HStack {
-                                TextField("",value: $dailyCount, formatter: NumberFormatter())
-                                    .cursorStyle()
-                                Spacer()
-                                Stepper("", onIncrement: {
-                                    incrementDailyCount()
-                                }, onDecrement: {
-                                    decrementDailyCount()
-                                })
-                            }
-                            
-                            Picker("Unit", selection: $dailyGoalUnit) {
-                                ForEach(dailyGoalUnits, id: \.self) { goal in
-                                    Text(goal)
-                                }
-                            }.pickerStyle(.navigationLink)
-                            
-                            if customGoalUnitSelected {
-                                TextField("Custom Unit", text: $customDailyGoalUnit, axis: .vertical)
-                                    .cursorStyle()
-                            }
-                        }header: {
-                            Text("my daily goal")
-                        }.sectionColorStyle()
-                        
-                    }.scrollContentBackground(.hidden)
+                        Spacer(minLength: 150)
+                    }
             }
             .navigationTitle("Add new habit")
             .navigationBarTitleDisplayMode(.inline)
@@ -137,8 +160,52 @@ struct AddNewHabit: View {
                     }
                 }
             }
+            .alert(errorTitle, isPresented: $showTitleError) {
+                Button("OK") {}
+            }message: {
+                Text(errorMessage)
+            }
         }
     }
+    
+    
+    func addHabit() {
+        guard isNotEmpty(input: selectedTitle) else {
+            inputError(title: "Empty Title", message: "Title cannot be empty!")
+            return
+        }
+        
+        
+        if customHabitTypeSelected {
+            guard isNotEmpty(input: customHabitType) else {
+                inputError(title: "Empty Custom Habit Type", message: "Habit type cannot be empty!")
+                return
+            }
+        }
+        
+        if customCountUnitSelected {
+            guard isNotEmpty(input: customDailyCountUnit) else {
+                inputError(title: "Empty Custom Count Unit", message: "Custom count unit cannot be empty!")
+                return
+            }
+        }
+        
+        // in every other case
+        
+    }
+    
+    func inputError(title: String, message: String) {
+        errorTitle = title
+        errorMessage = message
+        showTitleError = true
+    }
+    
+    
+    
+    func isNotEmpty(input: String) -> Bool {
+        return !input.isEmpty
+    }
+    
     
     func incrementDailyCount() {
         dailyCount += 1
