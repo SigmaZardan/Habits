@@ -14,48 +14,9 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             ScrollView(showsIndicators:false) {
-                VStack{
-                    Image("habitascent")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 100, height: 120)
-                        .clipShape(Circle())
-                    VStack {
-                        MotivationQuoteTitleView(title: "Success Begins with")
-                        MotivationQuoteTitleView(title: " small steps")
-                        
-                    }.padding(.vertical)
-                
-                    VStack(spacing:30){
-                        MotivationQuoteLabelView(label: "Build good habits.")
-                        MotivationQuoteLabelView(label: "Break Bad habits.")
-                        MotivationQuoteLabelView(label: "Stay Consistent.")
-                    }
-                    
-                    HStack {
-                        Spacer()
-                            .frame(maxWidth: 50)
-                        
-                        Button {
-                            // add first habit
-                            showAddNewHabit = true
-                        }label: {
-                            Text("Add first habit")
-                                .font(.title3.bold())
-                                .padding()
-                        }
-                        .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
-                        .background(.itemsBackgroundColor)
-                        .foregroundStyle(.black)
-                        .clipShape(.rect(cornerRadius: 12))
-                        
-                        Spacer()
-                            .frame(maxWidth: 50)
-                    }.padding(.vertical)
-                    
-                }.frame(maxWidth: .infinity)
-                    .padding(.vertical, 75)
-                
+                FirstMotivationView(
+                    showAddNewHabit: $showAddNewHabit
+                )
             }
             .preferredColorScheme(.dark)
             .toolbar {
@@ -78,6 +39,55 @@ struct ContentView: View {
                 AddNewHabit(habits: habits)
             }
         }
+    }
+}
+
+
+struct FirstMotivationView: View {
+    @Binding var showAddNewHabit: Bool
+    
+    var body: some View {
+        VStack{
+            Image("habitascent")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 100, height: 120)
+                .clipShape(Circle())
+            VStack {
+                MotivationQuoteTitleView(title: "Success Begins with")
+                MotivationQuoteTitleView(title: " small steps")
+                
+            }.padding(.vertical)
+        
+            VStack(spacing:30){
+                MotivationQuoteLabelView(label: "Build good habits.")
+                MotivationQuoteLabelView(label: "Break Bad habits.")
+                MotivationQuoteLabelView(label: "Stay Consistent.")
+            }
+            
+            HStack {
+                Spacer()
+                    .frame(maxWidth: 50)
+                
+                Button {
+                    // add first habit
+                    showAddNewHabit = true
+                }label: {
+                    Text("Add first habit")
+                        .font(.title3.bold())
+                        .padding()
+                }
+                .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
+                .background(.itemsBackgroundColor)
+                .foregroundStyle(.black)
+                .clipShape(.rect(cornerRadius: 12))
+                
+                Spacer()
+                    .frame(maxWidth: 50)
+            }.padding(.vertical)
+            
+        }.frame(maxWidth: .infinity)
+            .padding(.vertical, 75)
     }
 }
 
