@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var showAddNewHabit = false
+    @State private var habits = Habits() // keeping the object alive with state, also var because state must be var type
+    
     var body: some View {
         NavigationStack {
             ScrollView(showsIndicators:false) {
@@ -73,7 +75,7 @@ struct ContentView: View {
                 }
             }
             .sheet(isPresented: $showAddNewHabit) {
-                AddNewHabit()
+                AddNewHabit(habits: habits)
             }
         }
     }

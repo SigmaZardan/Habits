@@ -30,13 +30,13 @@ struct AddNewHabit: View {
     }
     
     @State private var customHabitType = ""
-    // while saving the habit , if the customhabit is selected then send this custom type otherwise just habit type
+  
     
     var customCountUnitSelected: Bool {
         return dailyGoalUnit == "Custom Unit"
     }
     
-    @State private var customDailyCountUnit = "" // if the custom unit is selected then send this custom type otherwose just daily goal unit when you save the data
+    @State private var customDailyCountUnit = ""
 
     
     @Environment(\.dismiss) var dismiss
@@ -46,6 +46,8 @@ struct AddNewHabit: View {
     @State private var showTitleError = false
     @State private var errorTitle = ""
     @State private var errorMessage = ""
+    
+    let habits: Habits
     
     var body: some View {
         NavigationStack {
@@ -131,24 +133,27 @@ struct AddNewHabit: View {
                             }.sectionColorStyle()
                             
                         }.scrollContentBackground(.hidden)
-                    
-                        Button {
-                            // add habit
-                            addHabit()
-                           
-                        }label: {
-                            Text("Add habit")
-                                .font(.title3.bold())
-                                .padding()
-                        }
-                        .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
-                        .background(.itemsBackgroundColor)
-                        .foregroundStyle(.black)
-                        .clipShape(.rect(cornerRadius: 12))
-                        .padding()
                         
-                        Spacer(minLength: 150)
-                    }
+                        
+                            Button {
+                                // add habit
+                                addHabit()
+                                // navigate to display habit view screen
+                                // need to use path here
+                                
+                            }label: {
+                                Text("Add habit")
+                                    .font(.title3.bold())
+                                    .padding()
+                            }
+                            .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
+                            .background(.itemsBackgroundColor)
+                            .foregroundStyle(.black)
+                            .clipShape(.rect(cornerRadius: 12))
+                            .padding()
+                            
+                            Spacer(minLength: 150)
+                        }
             }
             .navigationTitle("Add new habit")
             .navigationBarTitleDisplayMode(.inline)
@@ -190,7 +195,10 @@ struct AddNewHabit: View {
             }
         }
         
-        // in every other case
+       
+        let habit = Habit(habitTitle: selectedTitle, description: selectedDescription, type: customHabitTypeSelected ? customHabitType : habitType, habitGoal: selectedGoal, dailyCount: dailyCount, dailyCountUnit: customCountUnitSelected ? customDailyCountUnit : customDailyCountUnit)
+        
+        habits.habits.append(habit)
         
     }
     
@@ -248,5 +256,5 @@ extension View {
 
 
 #Preview {
-    AddNewHabit()
+    AddNewHabit(habits: Habits())
 }

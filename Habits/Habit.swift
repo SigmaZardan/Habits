@@ -12,7 +12,7 @@ import Foundation
 // you are actually adding a new habit
 
 struct Habit: Identifiable, Codable{
-    let id: Int
+    var id = UUID()
     let habitTitle: String
     let description: String
     let type: String
