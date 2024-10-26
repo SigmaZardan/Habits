@@ -6,10 +6,6 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		60D362432CC8FB11006F52D1 /* DisplayHabitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D362422CC8FB11006F52D1 /* DisplayHabitView.swift */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXContainerItemProxy section */
 		605B95A32CC7886B00262744 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -31,7 +27,6 @@
 		605B95922CC7886800262744 /* Habits.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Habits.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		605B95A22CC7886B00262744 /* HabitsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HabitsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		605B95AC2CC7886B00262744 /* HabitsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HabitsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		60D362422CC8FB11006F52D1 /* DisplayHabitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayHabitView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -80,7 +75,6 @@
 		605B95892CC7886800262744 = {
 			isa = PBXGroup;
 			children = (
-				60D362422CC8FB11006F52D1 /* DisplayHabitView.swift */,
 				605B95942CC7886800262744 /* Habits */,
 				605B95A52CC7886B00262744 /* HabitsTests */,
 				605B95AF2CC7886B00262744 /* HabitsUITests */,
@@ -242,7 +236,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				60D362432CC8FB11006F52D1 /* DisplayHabitView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

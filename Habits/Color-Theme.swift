@@ -27,4 +27,25 @@ extension ShapeStyle where Self == Color {
     static var sectionBackgroundColor: Color {
         Color(red: 54/255, green: 54/255, blue: 56/255)
     }
+    
+    static var circularProgressFillStrokeColor: Color {
+        Color(red: 58/255, green: 58/255, blue: 60/255, opacity: 1.0)
+    }
+    
+    static var inProgressFillColor1: Color {
+        Color(red: 177 / 255.0, green: 92 / 255.0, blue: 241 / 255.0, opacity: 255 / 255.0)
+    }
+    
+    static var inProgressFillColor2: Color {
+        Color(red: 56 / 255.0, green: 120 / 255.0, blue: 249 / 255.0, opacity: 255 / 255.0)
+    }
+    
+    static var progressCompleteFillColor1: Color {
+        Color(red: 46 / 255.0, green: 208 / 255.0, blue: 87 / 255.0, opacity: 255 / 255.0)
+    }
+    
+    static var progressCompleteFillColor2: Color {
+        Color(red: 98 / 255.0, green: 208 / 255.0, blue: 254 / 255.0, opacity: 255 / 255.0)
+    }
+    
 }

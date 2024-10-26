@@ -11,12 +11,22 @@ struct ContentView: View {
     @State private var showAddNewHabit = false
     @State private var habits = Habits() // keeping the object alive with state, also var because state must be var type
     
+    var hasNoHabits: Bool {
+        habits.habits.isEmpty
+    }
+    
+    
+    var showScrollViewIndicators: Bool {
+        hasNoHabits ? false : true
+    }
     var body: some View {
         NavigationStack {
-            ScrollView(showsIndicators:false) {
-                FirstMotivationView(
-                    showAddNewHabit: $showAddNewHabit
-                )
+            ScrollView(showsIndicators:showScrollViewIndicators) {
+                if hasNoHabits {
+                    FirstMotivationView(showAddNewHabit: $showAddNewHabit)
+                } else {
+                    DisplayHabit(habits: habits)
+                }
             }
             .preferredColorScheme(.dark)
             .toolbar {

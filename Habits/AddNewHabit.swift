@@ -138,8 +138,7 @@ struct AddNewHabit: View {
                             Button {
                                 // add habit
                                 addHabit()
-                                // navigate to display habit view screen
-                                // need to use path here
+                                dismiss()
                                 
                             }label: {
                                 Text("Add habit")
