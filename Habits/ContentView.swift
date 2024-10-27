@@ -21,7 +21,7 @@ struct ContentView: View {
     }
     var body: some View {
         NavigationStack {
-            ScrollView(showsIndicators:showScrollViewIndicators) {
+            VStack {
                 if hasNoHabits {
                     FirstMotivationView(showAddNewHabit: $showAddNewHabit)
                 } else {

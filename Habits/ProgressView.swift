@@ -9,11 +9,11 @@ import SwiftUI
 
 struct CircularProgressView: View {
     
-    let count:Int
+    let count: Int
     
     let total: Int
     
-    var showPercent: Bool = true
+    var showPercent: Bool = false
     
     var progress: CGFloat {
         return CGFloat(count) / CGFloat(total)
@@ -21,7 +21,7 @@ struct CircularProgressView: View {
     
     var showBottomText: Bool = false
     var bottomText: String = ""
-
+    
     let fill = LinearGradient(colors: [.inProgressFillColor1, .inProgressFillColor2], startPoint: .top, endPoint: .bottom)
     
     let fill2 = LinearGradient(colors:[.progressCompleteFillColor1,.progressCompleteFillColor2], startPoint: .top, endPoint: .bottom)
@@ -29,7 +29,11 @@ struct CircularProgressView: View {
  
     
     var countText: String {
-        return showPercent ? "\(count)%" : "\(count)"
+        return if showPercent {
+            "\(Int(progress * 100))%"
+        } else {
+            "\(count)"
+        }
     }
     
     let backgroundLineStroke: CGFloat

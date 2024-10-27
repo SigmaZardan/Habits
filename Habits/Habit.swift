@@ -11,7 +11,7 @@ import Foundation
 // every time you add a habit
 // you are actually adding a new habit
 
-struct Habit: Identifiable, Codable{
+struct Habit: Identifiable, Codable, Equatable{
     var id = UUID()
     let habitTitle: String
     let description: String
@@ -19,6 +19,7 @@ struct Habit: Identifiable, Codable{
     let habitGoal: String
     let dailyCount: Int
     let dailyCountUnit: String
+    var completionCount: Int = 0
 }
 
 @Observable
