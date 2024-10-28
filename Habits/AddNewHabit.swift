@@ -151,7 +151,7 @@ struct AddNewHabit: View {
                             Button {
                                 // add habit
                                 addHabit()
-                                dismiss()
+                                
                                 
                             }label: {
                                 Text("Add habit")
@@ -220,7 +220,7 @@ struct AddNewHabit: View {
        
         
         habits.habits.append(habit)
-        
+        dismiss()
     }
     
     func inputError(title: String, message: String) {
