@@ -55,7 +55,6 @@ struct AddNewHabit: View {
         NavigationStack {
                 ZStack {
                     Color(.sheetBackgroundColor).ignoresSafeArea()
-                    VStack {
                         Form {
                             Section {
                                 TextField("E.g., Take a walk", text: $selectedTitle)
@@ -145,26 +144,27 @@ struct AddNewHabit: View {
                                 Text("my daily goal")
                             }.sectionColorStyle()
                             
+                            Section {
+                                Button {
+                                    // add habit
+                                    addHabit()
+                                    
+                                    
+                                }label: {
+                                    Text("Add habit")
+                                        .font(.title3.bold())
+                                        .padding()
+                                }
+                                .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
+                                .background(.itemsBackgroundColor)
+                                .foregroundStyle(.black)
+                                .clipShape(.rect(cornerRadius: 12))
+                                
+                            }.listRowBackground(Color.sheetBackgroundColor)
+                            
                         }.scrollContentBackground(.hidden)
                         
-                        
-                            Button {
-                                // add habit
-                                addHabit()
-                                
-                                
-                            }label: {
-                                Text("Add habit")
-                                    .font(.title3.bold())
-                                    .padding()
-                            }
-                            .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
-                            .background(.itemsBackgroundColor)
-                            .foregroundStyle(.black)
-                            .clipShape(.rect(cornerRadius: 12))
-                            .padding()
                             
-                        }
             }
             .navigationTitle("Add new habit")
             .navigationBarTitleDisplayMode(.inline)
