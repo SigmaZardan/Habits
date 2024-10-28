@@ -41,8 +41,8 @@ struct ContentView: View {
                         .padding(15)
                         .background(.lightDarkBackground)
                         .clipShape(Circle())
-                        .padding()
-                }
+                        
+                }.padding()
             }
             .sheet(isPresented: $showAddNewHabit) {
                 AddNewHabit(habits: habits)
