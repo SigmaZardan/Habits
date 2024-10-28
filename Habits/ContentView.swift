@@ -31,7 +31,6 @@ struct ContentView: View {
             .preferredColorScheme(.dark)
             .toolbar {
                 Button {
-                   // add new view
                     showAddNewHabit = true
                 }label: {
                     Image(systemName: "plus")
@@ -42,7 +41,7 @@ struct ContentView: View {
                         .padding(15)
                         .background(.lightDarkBackground)
                         .clipShape(Circle())
-                        .padding(.bottom)
+                        .padding()
                 }
             }
             .sheet(isPresented: $showAddNewHabit) {
@@ -57,45 +56,46 @@ struct FirstMotivationView: View {
     @Binding var showAddNewHabit: Bool
     
     var body: some View {
-        VStack{
-            Image("habitascent")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 100, height: 120)
-                .clipShape(Circle())
-            VStack {
-                MotivationQuoteTitleView(title: "Success Begins with")
-                MotivationQuoteTitleView(title: " small steps")
+        ScrollView{
+            VStack{
+                Image("habitascent")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 100, height: 120)
+                    .clipShape(Circle())
+                VStack {
+                    MotivationQuoteTitleView(title: "Success Begins with")
+                    MotivationQuoteTitleView(title: " small steps")
+                    
+                }.padding(.vertical)
                 
-            }.padding(.vertical)
-        
-            VStack(spacing:30){
-                MotivationQuoteLabelView(label: "Build good habits.")
-                MotivationQuoteLabelView(label: "Break Bad habits.")
-                MotivationQuoteLabelView(label: "Stay Consistent.")
-            }
-            
-            HStack {
-                Spacer()
-                    .frame(maxWidth: 50)
-                
-                Button {
-                    // add first habit
-                    showAddNewHabit = true
-                }label: {
-                    Text("Add first habit")
-                        .font(.title3.bold())
-                        .padding()
+                VStack(spacing:30){
+                    MotivationQuoteLabelView(label: "Build good habits.")
+                    MotivationQuoteLabelView(label: "Break Bad habits.")
+                    MotivationQuoteLabelView(label: "Stay Consistent.")
                 }
-                .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
-                .background(.itemsBackgroundColor)
-                .foregroundStyle(.black)
-                .clipShape(.rect(cornerRadius: 12))
                 
-                Spacer()
-                    .frame(maxWidth: 50)
-            }.padding(.vertical)
-            
+                HStack {
+                    Spacer()
+                        .frame(maxWidth: 50)
+                    
+                    Button {
+                        // add first habit
+                        showAddNewHabit = true
+                    }label: {
+                        Text("Add first habit")
+                            .font(.title3.bold())
+                            .padding()
+                    }
+                    .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
+                    .background(.itemsBackgroundColor)
+                    .foregroundStyle(.black)
+                    .clipShape(.rect(cornerRadius: 12))
+                    
+                    Spacer()
+                        .frame(maxWidth: 50)
+                }.padding(.vertical)
+            }
         }.frame(maxWidth: .infinity)
             .padding(.vertical, 75)
     }

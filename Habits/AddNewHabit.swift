@@ -47,6 +47,8 @@ struct AddNewHabit: View {
     @State private var errorTitle = ""
     @State private var errorMessage = ""
     
+    @FocusState private var isFocused: Bool
+    
     let habits: Habits
     
     var body: some View {
@@ -58,6 +60,8 @@ struct AddNewHabit: View {
                             Section {
                                 TextField("E.g., Take a walk", text: $selectedTitle)
                                     .cursorStyle()
+                                    .textFieldStyle()
+                                    .focused($isFocused)
                                 
                             }header: {
                                 Text("name")
@@ -72,8 +76,9 @@ struct AddNewHabit: View {
                                 }.pickerStyle(.navigationLink)
                                 
                                 if showMore {
-                                    TextField("Description", text: $selectedDescription, axis: .vertical)
-                                        .cursorStyle()
+                                        TextField("Description", text: $selectedDescription, axis: .vertical)
+                                            .cursorStyle()
+                                            .focused($isFocused)
                                 }
                                 
                             }header: {
@@ -101,6 +106,8 @@ struct AddNewHabit: View {
                                 if customHabitTypeSelected {
                                     TextField("Custom habit", text: $customHabitType, axis: .vertical)
                                         .cursorStyle()
+                                        .textFieldStyle()
+                                        .focused($isFocused)
                                 }
                             }header: {
                                 Text("Type")
@@ -110,6 +117,10 @@ struct AddNewHabit: View {
                                 HStack {
                                     TextField("",value: $dailyCount, formatter: NumberFormatter())
                                         .cursorStyle()
+                                        .textFieldStyle()
+                                        .keyboardType(.numberPad)
+                                        .focused($isFocused)
+                                    
                                     Spacer()
                                     Stepper("", onIncrement: {
                                         incrementDailyCount()
@@ -127,6 +138,8 @@ struct AddNewHabit: View {
                                 if customCountUnitSelected {
                                     TextField("Custom Unit", text: $customDailyCountUnit, axis: .vertical)
                                         .cursorStyle()
+                                        .textFieldStyle()
+                                        .focused($isFocused)
                                 }
                             }header: {
                                 Text("my daily goal")
@@ -151,7 +164,6 @@ struct AddNewHabit: View {
                             .clipShape(.rect(cornerRadius: 12))
                             .padding()
                             
-                            Spacer(minLength: 150)
                         }
             }
             .navigationTitle("Add new habit")
@@ -161,6 +173,15 @@ struct AddNewHabit: View {
                 ToolbarItemGroup(placement: .topBarLeading) {
                     Button("Cancel") {
                         dismiss()
+                    }
+                }
+                
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer()
+                    Button {
+                        isFocused = false
+                    }label: {
+                        Text("Done")
                     }
                 }
             }
@@ -235,11 +256,24 @@ struct CursorStyle: ViewModifier {
 }
 
 
+struct TextFieldStyle: ViewModifier {
+    func body(content: Content) -> some View {
+        content.textInputAutocapitalization(.never)
+    }
+}
+
+
 extension View {
     func cursorStyle() -> some View {
         modifier(CursorStyle())
     }
+    
+    func textFieldStyle() -> some View {
+        modifier(TextFieldStyle())
+    }
 }
+
+
 
 struct SectionColor: ViewModifier {
     func body(content: Content) -> some View {

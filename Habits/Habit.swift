@@ -11,7 +11,7 @@ import Foundation
 // every time you add a habit
 // you are actually adding a new habit
 
-struct Habit: Identifiable, Codable, Equatable{
+struct Habit: Identifiable, Codable, Equatable, Hashable{
     var id = UUID()
     let habitTitle: String
     let description: String
