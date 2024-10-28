@@ -35,10 +35,10 @@ struct ContentView: View {
                 }label: {
                     Image(systemName: "plus")
                         .resizable()
-                        .frame(width:20, height:20)
+                        .frame(width:15, height:15)
                         .font(.system(size:20, weight:.bold))
                         .foregroundStyle(.itemsBackgroundColor)
-                        .padding(15)
+                        .padding(10)
                         .background(.lightDarkBackground)
                         .clipShape(Circle())
                         
