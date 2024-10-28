@@ -38,11 +38,15 @@ struct DisplayHabit: View {
     
     @State private var showEachHabitComponent: Bool = false
     
+    let fill1 = LinearGradient(colors: [.inProgressFillColor1, .inProgressFillColor2], startPoint: .top, endPoint: .bottom)
+    
+    let fill2 = LinearGradient(colors:[.progressCompleteFillColor1,.progressCompleteFillColor2], startPoint: .top, endPoint: .bottom)
+    
     var body: some View {
         NavigationStack {
             List {
                 HStack {
-                    CircularProgressView(count: overallCompletionCount, total: overallDailyCount, showPercent: true,backgroundLineStroke: 30.0, onTopProgressStroke: 31.0, checkMarkSize: 130, countTextSize: 80)
+                    CircularProgressView(count: overallCompletionCount, total: overallDailyCount, showPercent: true,backgroundLineStroke: 30.0, onTopProgressStroke: 31.0, checkMarkSize: 110, countTextSize: 60)
                         .scaleEffect(animationAmountOverallProgress)
                         .animation(.spring(duration: 0.25, bounce: 0.5), value: animationAmountOverallProgress)
                         .onTapGesture {
@@ -59,6 +63,14 @@ struct DisplayHabit: View {
                 ForEach(habits.habits) {
                     habit in
                                 HStack {
+                                    Image(systemName:"arrow.trianglehead.2.clockwise.rotate.90.circle")
+                                        .resizable()
+                                        .frame(width:40, height:40)
+                                        .foregroundStyle(habit.completionCount == habit.dailyCount ? fill2 : fill1
+                                        )
+                                        .padding(7)
+                                    
+                                    
                                     VStack(alignment:.leading){
                                         Text(habit.habitTitle)
                                             .font(.title2.bold())
@@ -67,7 +79,7 @@ struct DisplayHabit: View {
                                         
                                         Text("Goal: \(habit.dailyCount) \(habit.dailyCountUnit)")
                                         
-                                    }.padding(.horizontal)
+                                    }.padding(1)
                                     
                                     Spacer()
                                     
@@ -79,7 +91,6 @@ struct DisplayHabit: View {
                                     
                         }.frame(maxWidth: .infinity)
                             .background(.lightDarkBackground)
-                            .clipShape(.rect(cornerRadius:10))
                             .background(
                                 NavigationLink("", destination: HabitView(habit: habit, incrementCompletionCount: {
                                     incrementCompletionCount(habit: habit)
@@ -91,7 +102,11 @@ struct DisplayHabit: View {
                                     completeCount(habit: habit)
                                     
                                 })).opacity(0)
-                            )
+                            ).clipShape(.rect(cornerRadius:10))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.lightBackground, lineWidth: 4)
+                        )
                 }
                 .onDelete(perform: removeHabit)
             }
