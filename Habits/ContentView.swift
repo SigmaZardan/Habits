@@ -15,10 +15,6 @@ struct ContentView: View {
         habits.habits.isEmpty
     }
     
-    
-    var showScrollViewIndicators: Bool {
-        hasNoHabits ? false : true
-    }
     var body: some View {
         NavigationStack {
             VStack {

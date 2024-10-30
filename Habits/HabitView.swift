@@ -76,7 +76,7 @@ struct HabitView: View {
                     }.padding()
                     
                     HStack {
-                        CircularProgressView(count: habit.completionCount, total: habit.dailyCount, backgroundLineStroke: 30.0, onTopProgressStroke: 31.0, checkMarkSize: 130, countTextSize: 80)
+                        CircularProgressView(count: habit.completionCount, total: habit.dailyCount,showBottomText: true,bottomText: habit.dailyCountUnit, backgroundLineStroke: 30.0, onTopProgressStroke: 31.0, checkMarkSize: 130, countTextSize: 80, bottomTextSize: 25)
                             .scaleEffect(aniimationAmountIndividualProgress)
                             .scaleEffect(aniimationAmountIndividualProgress)
                             .animation(.spring(duration: 0.25, bounce: 0.5), value: aniimationAmountIndividualProgress)

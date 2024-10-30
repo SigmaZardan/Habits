@@ -216,7 +216,7 @@ struct AddNewHabit: View {
         }
         
        
-        let habit = Habit(habitTitle: selectedTitle, description: selectedDescription, type: customHabitTypeSelected ? customHabitType : habitType, habitGoal: selectedGoal, dailyCount: dailyCount, dailyCountUnit: customCountUnitSelected ? customDailyCountUnit : customDailyCountUnit)
+        let habit = Habit(habitTitle: selectedTitle, description: selectedDescription, type: customHabitTypeSelected ? customHabitType : habitType, habitGoal: selectedGoal, dailyCount: dailyCount, dailyCountUnit: customCountUnitSelected ? customDailyCountUnit : dailyGoalUnit)
        
         
         habits.habits.append(habit)

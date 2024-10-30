@@ -73,7 +73,7 @@ struct CircularProgressView: View {
                     Text(countText)
                         .font(Font.system(size: countTextSize, weight: .bold, design: .rounded))
                     if showBottomText {
-                        Text(bottomText).font(Font.system(size: bottomTextSize))
+                        Text(bottomText).font(Font.system(size: bottomTextSize, weight:.bold))
                     }
                 }
             }
